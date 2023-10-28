@@ -2,6 +2,8 @@ package com.caca.palindrome.controller;
 
 import com.caca.palindrome.controller.dto.ErrorHandleDto;
 import com.caca.palindrome.controller.dto.FieldErrorDto;
+import com.caca.palindrome.model.exception.ResourceNotFound;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
 public class ExceptionHandle {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorHandleDto> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<ErrorHandleDto> methodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
 
         List<FieldError> fieldErrors = e.getFieldErrors();
         Set<FieldErrorDto> errorList = new HashSet<>();
@@ -30,16 +32,31 @@ public class ExceptionHandle {
                     .map(el -> new FieldErrorDto(el.getField(), el.getDefaultMessage()))
                     .collect(Collectors.toSet());
         }
+        ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                errorList, httpServletRequest.getRequestURI());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorHandleDto(HttpStatus.BAD_REQUEST, errorList)
-                );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorHandleDto);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorHandleDto> methodArgumentNotValidException(HttpMessageNotReadableException e) {
+    public ResponseEntity<ErrorHandleDto> httpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest httpServletRequest) {
 
-        ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.BAD_REQUEST, "Estrutura da matriz está invalida!");
+        ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.BAD_REQUEST.value(),
+                "Estrutura da matriz está invalida!",
+                httpServletRequest.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                errorHandleDto
+        );
+    }
+
+    @ExceptionHandler(ResourceNotFound.class)
+    public ResponseEntity<ErrorHandleDto> resourceNotFound(ResourceNotFound e, HttpServletRequest httpServletRequest) {
+
+        ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.NOT_FOUND.value(),
+                "Recurso não encontrado.",
+                httpServletRequest.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 errorHandleDto

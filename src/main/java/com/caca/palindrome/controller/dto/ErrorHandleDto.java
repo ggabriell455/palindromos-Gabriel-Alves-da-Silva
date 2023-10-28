@@ -1,53 +1,54 @@
 package com.caca.palindrome.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorHandleDto {
 
-    private int code;
-    private String messageCode;
+    private int status;
     private String error;
     private Set<FieldErrorDto> errors;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:sszz", locale = "pt-BR", timezone = "GTM-3")
+    private LocalDateTime timestamp;
+    private String path;
 
     public ErrorHandleDto() {
     }
 
-    public ErrorHandleDto(HttpStatus httpStatus, Set<FieldErrorDto> errors) {
-        this.code = httpStatus.value();
-        this.messageCode = httpStatus.getReasonPhrase();
+    public ErrorHandleDto(int status, String error, Set<FieldErrorDto> errors, String path) {
+        this.status = status;
+        this.error = error;
         this.errors = errors;
+        this.path = path;
+        this.timestamp = LocalDateTime.now();
     }
 
-    public ErrorHandleDto(HttpStatus httpStatus, String error) {
-        this.code = httpStatus.value();
-        this.messageCode = httpStatus.getReasonPhrase();
+    public ErrorHandleDto(int status, String error, String path) {
+        this.status = status;
         this.error = error;
+        this.path = path;
+        this.timestamp = LocalDateTime.now();
     }
 
-    public ErrorHandleDto(int code, String messagerCode, String error) {
-        this.code = code;
-        this.messageCode = messagerCode;
+    public ErrorHandleDto(int status, String error, Set<FieldErrorDto> errors, LocalDateTime timestamp, String path) {
+        this.status = status;
         this.error = error;
+        this.errors = errors;
+        this.timestamp = timestamp;
+        this.path = path;
     }
 
-    public int getCode() {
-        return code;
+
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessageCode() {
-        return messageCode;
-    }
-
-    public void setMessageCode(String messageCode) {
-        this.messageCode = messageCode;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getError() {
@@ -64,5 +65,21 @@ public class ErrorHandleDto {
 
     public void setErrors(Set<FieldErrorDto> errors) {
         this.errors = errors;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
