@@ -2,25 +2,36 @@ package com.caca.palindrome.model.entity;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Palindrome {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String matrix;
-
-    @ElementCollection
+    /**
+     * Usando FetchType.EAGER aqui porque para todo o sistema
+     * essa lista de resultado é o iten mais importante, por isso não
+     * precisa ser FetchType.LAZY
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> resultList;
 
     @CreatedDate
     private LocalDateTime createdAt;
+
+    public Palindrome() {
+    }
+
+    public Palindrome(Set<String> resultList) {
+        this.resultList = resultList;
+    }
 
     public Long getId() {
         return id;
@@ -28,14 +39,6 @@ public class Palindrome {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getMatrix() {
-        return matrix;
-    }
-
-    public void setMatrix(String matrix) {
-        this.matrix = matrix;
     }
 
     public Set<String> getResultList() {
