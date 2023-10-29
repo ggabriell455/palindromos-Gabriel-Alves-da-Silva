@@ -123,9 +123,9 @@ class PalindromeControllerTest {
     }
 
     @Test
-    @Sql({"/data/palindrome.sql"})
+    @Sql({"/data/palindrome-controller-test.sql"})
     void findResult() throws Exception {
-        this.mockMvc.perform(get(BASE_URL + "/c85c6752-4079-4fac-a063-2c7d301fb44a"))
+        this.mockMvc.perform(get(BASE_URL + "/b29ed83b-ba75-468f-b34d-c49ba525f463"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", hasSize(4)));
