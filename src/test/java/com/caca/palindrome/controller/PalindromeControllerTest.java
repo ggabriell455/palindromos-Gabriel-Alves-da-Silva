@@ -125,6 +125,7 @@ class PalindromeControllerTest {
 
     @Test
     @Sql({"/data/palindrome-controller-test.sql"})
+    @DisplayName("Should return a success")
     void findResultSuccess() throws Exception {
         this.mockMvc.perform(get(BASE_URL + "/b29ed83b-ba75-468f-b34d-c49ba525f463"))
                 .andExpect(status().isOk())
@@ -133,6 +134,7 @@ class PalindromeControllerTest {
     }
 
     @Test
+    @DisplayName("Should return a erro 404")
     void findResultNotFound() throws Exception {
 
         this.mockMvc.perform(get(BASE_URL + "/9147b7df-dfd7-4c38-83c5-514324db74b6"))
