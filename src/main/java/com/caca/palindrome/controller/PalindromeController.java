@@ -49,7 +49,7 @@ public class PalindromeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Set<String>> checkPalindromes(@PathVariable String id) {
+    public ResponseEntity<Set<String>> findResult(@PathVariable String id) {
         Palindrome palindrome = this.palindromeService.findById(id);
         return ResponseEntity.ok(palindrome.getResultList());
     }

@@ -23,6 +23,7 @@ class PalindromeServiceTest {
 
     @Test
     @Sql({"/data/palindrome.sql"})
+    @DisplayName("Should find data in database")
     void findById() {
         Palindrome palindrome = this.palindromeService.findById("c85c6752-4079-4fac-a063-2c7d301fb44a");
 

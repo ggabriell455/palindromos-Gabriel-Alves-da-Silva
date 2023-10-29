@@ -43,7 +43,7 @@ public class ExceptionHandle {
     public ResponseEntity<ErrorHandleDto> httpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest httpServletRequest) {
 
         ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.BAD_REQUEST.value(),
-                "Estrutura da matriz está invalida!",
+                "Estrutura da matriz está inválida!",
                 httpServletRequest.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
