@@ -43,7 +43,7 @@ public class ExceptionHandle {
     public ResponseEntity<ErrorHandleDto> httpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest httpServletRequest) {
 
         ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.BAD_REQUEST.value(),
-                "Estrutura da matriz está inválida!",
+                "Estrutura da matriz está inválida",
                 httpServletRequest.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
@@ -55,10 +55,10 @@ public class ExceptionHandle {
     public ResponseEntity<ErrorHandleDto> resourceNotFound(ResourceNotFound e, HttpServletRequest httpServletRequest) {
 
         ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.NOT_FOUND.value(),
-                "Recurso não encontrado.",
+                "Recurso não encontrado",
                 httpServletRequest.getRequestURI());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 errorHandleDto
         );
     }

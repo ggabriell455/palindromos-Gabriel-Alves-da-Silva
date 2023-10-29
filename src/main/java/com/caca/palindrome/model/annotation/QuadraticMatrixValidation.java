@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = QuadraticMatrixValidator.class)
 public @interface QuadraticMatrixValidation {
-    String message() default "A matriz não é quadrada.";
+    String message() default "A matriz não é quadrada";
 
     Class<?>[] groups() default {};
 

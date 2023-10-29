@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -70,8 +71,8 @@ class PalindromeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.header().doesNotExist(HttpHeaders.LOCATION))
-                .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.error").value("Estrutura da matriz está inválida!"))
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.error").value("Estrutura da matriz está inválida"))
                 .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.path").value(BASE_URL));
     }
@@ -95,12 +96,12 @@ class PalindromeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.header().doesNotExist(HttpHeaders.LOCATION))
-                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.error").value("Bad Request"))
                 .andExpect(jsonPath("$.errors").isArray())
                 .andExpect(jsonPath("$.errors", hasSize(1)))
                 .andExpect(jsonPath("$.errors[0].field").value("matrix"))
-                .andExpect(jsonPath("$.errors[0].messageError").value("A matriz não é quadrada."))
+                .andExpect(jsonPath("$.errors[0].messageError").value("A matriz não é quadrada"))
                 .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.path").value(BASE_URL));
     }
@@ -116,18 +117,30 @@ class PalindromeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.header().doesNotExist(HttpHeaders.LOCATION))
-                .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.error").value("Estrutura da matriz está inválida!"))
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.error").value("Estrutura da matriz está inválida"))
                 .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.path").value(BASE_URL));
     }
 
     @Test
     @Sql({"/data/palindrome-controller-test.sql"})
-    void findResult() throws Exception {
+    void findResultSuccess() throws Exception {
         this.mockMvc.perform(get(BASE_URL + "/b29ed83b-ba75-468f-b34d-c49ba525f463"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", hasSize(4)));
+    }
+
+    @Test
+    void findResultNotFound() throws Exception {
+
+        this.mockMvc.perform(get(BASE_URL + "/9147b7df-dfd7-4c38-83c5-514324db74b6"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
+                .andExpect(jsonPath("$.error").value("Recurso não encontrado"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
+                .andExpect(jsonPath("$.path").isNotEmpty());
     }
 }
