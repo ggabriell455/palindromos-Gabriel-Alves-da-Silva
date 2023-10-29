@@ -15,9 +15,9 @@ colunas de 10x10.
 - Docker
 - Docker-Compose
 
-### Intruções de Build e Execução (Vou disponibilizar 3 formas)
+### Instruções de Build e Execução (Vou disponibilizar 3 formas)
 
-### 1° Opção para executar application direto pelo .jar
+### 1° Opção para executar a aplicação direto pelo .jar
 
 Na pasta raiz onde se encontra o pom.xml executar o comando abaixo para gerar o .jar:
 
@@ -37,9 +37,9 @@ Para levantar a aplicação:
 java -jar target/palindrome-0.0.1-beta.jar
 ```
 
-### 2° Opção para executar application pelo Dockerfile
+### 2° Opção para executar a aplicação pelo Dockerfile
 
-Na pasta raiz onde se encontra o pom.xml executar comando para gerar o .jar:
+Na pasta raiz onde se encontra o pom.xml executar comando abaixo para gerar o .jar:
 
 ```shell
   mvn package 
@@ -69,7 +69,7 @@ Para levantar a aplicação (Com possibilidade de debug):
 - docker run -p 8080:8082 -p 5005:5005 -e JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n" <user-do-dockerhub>/palindromos:1.0
 ```
 
-### 3° Opção para executar application pelo Docker-compose
+### 3° Opção para executar a aplicação pelo Docker-compose
 
 Criei um repositorio publico para facilitar a execução. Basta executar:
 
@@ -78,7 +78,7 @@ docker-compose up
 ```
 PS: <user-do-dockerhub> pode ser substituido por qualquer texto.
 
-### Disponibilição da documentação pelo Swagger (Com o projeto rodando)
+### Disponibilização da documentação pelo Swagger (Com o projeto rodando)
 
 - http://localhost:8082/api/api-docs
 - http://localhost:8082/api/swagger-ui/index.html#/
