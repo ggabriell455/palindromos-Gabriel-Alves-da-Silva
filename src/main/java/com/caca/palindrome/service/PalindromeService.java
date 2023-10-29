@@ -7,6 +7,7 @@ import com.caca.palindrome.repository.PalindromeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class PalindromeService {
@@ -21,7 +22,7 @@ public class PalindromeService {
         return this.palindromeRepository.save(new Palindrome(palindromes));
     }
 
-    public Palindrome findById(Long id) {
-        return this.palindromeRepository.findById(id).orElseThrow(ResourceNotFound::new);
+    public Palindrome findById(String id) {
+        return this.palindromeRepository.findById(UUID.fromString(id)).orElseThrow(ResourceNotFound::new);
     }
 }

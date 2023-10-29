@@ -1,6 +1,5 @@
 package com.caca.palindrome.model.exception;
 
 
-
-public class ResourceNotFound extends RuntimeException{
+public class ResourceNotFound extends RuntimeException {
 }
