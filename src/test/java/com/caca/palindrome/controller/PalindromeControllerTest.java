@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class PalindromeControllerTest {
 
-    private final String BASE_URL = "/palindromes";
+    private final String BASE_URL = "/api/palindromes";
 
     @Autowired
     private MockMvc mockMvc;

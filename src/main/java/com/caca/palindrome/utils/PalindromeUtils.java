@@ -1,5 +1,8 @@
 package com.caca.palindrome.utils;
 
+import com.caca.palindrome.model.exception.UnableSearchPalindromeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
@@ -7,28 +10,37 @@ import java.util.Set;
 
 public class PalindromeUtils {
 
+    static Logger logger = LoggerFactory.getLogger(PalindromeUtils.class);
+
     public static Set<String> findPalindromes(char[][] matrix) {
-        int rows = matrix.length;
-        int columns = matrix[0].length;
-        Set<String> palindromes = new HashSet<>();
+        logger.info("Method: findPalindromes");
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                // Find horizontal palindromes
-                palindromes.addAll(checkPalindrome(matrix, i, j, 0, 1));
+        try {
+            int rows = matrix.length;
+            int columns = matrix[0].length;
+            Set<String> palindromes = new HashSet<>();
 
-                // Find vertical palindromes
-                palindromes.addAll(checkPalindrome(matrix, i, j, 1, 0));
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    // Find horizontal palindromes
+                    palindromes.addAll(checkPalindrome(matrix, i, j, 0, 1));
 
-                // Find diagonal palindromes (left to right)
-                palindromes.addAll(checkPalindrome(matrix, i, j, 1, 1));
+                    // Find vertical palindromes
+                    palindromes.addAll(checkPalindrome(matrix, i, j, 1, 0));
 
-                // Find diagonal palindromes (right to left)
-                palindromes.addAll(checkPalindrome(matrix, i, j, 1, -1));
+                    // Find diagonal palindromes (left to right)
+                    palindromes.addAll(checkPalindrome(matrix, i, j, 1, 1));
+
+                    // Find diagonal palindromes (right to left)
+                    palindromes.addAll(checkPalindrome(matrix, i, j, 1, -1));
+                }
             }
-        }
 
-        return palindromes;
+            return palindromes;
+        } catch (Exception e) {
+            logger.error("Unable to perform search", e.getCause());
+            throw new UnableSearchPalindromeException("The search could not be performed, please check the data and try again.");
+        }
     }
 
     private static Set<String> checkPalindrome(char[][] matrix, int row, int column, int rowIncrement, int columnIncrement) {
@@ -53,6 +65,8 @@ public class PalindromeUtils {
 
     //TODO perguntar se as palavras buscadas tem que ser maior que 4 letrás sempre?
     public static boolean isPalindrome(String text) {
+        logger.info("Method: isPalindrome");
+
         boolean isPalindrome = false;
         if (StringUtils.hasText(text) && text.length() >= 4) {
             StringBuilder plain = new StringBuilder(text);

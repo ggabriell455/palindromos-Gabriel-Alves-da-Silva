@@ -5,6 +5,8 @@ import com.caca.palindrome.model.entity.Palindrome;
 import com.caca.palindrome.service.PalindromeService;
 import com.caca.palindrome.utils.PalindromeUtils;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import java.util.Set;
 @RequestMapping("/palindromes")
 public class PalindromeController {
 
+    Logger logger = LoggerFactory.getLogger(PalindromeController.class);
+
     private final PalindromeService palindromeService;
 
     public PalindromeController(PalindromeService palindromeService) {
@@ -31,9 +35,9 @@ public class PalindromeController {
 
     @PostMapping
     public ResponseEntity<Set<String>> checkPalindromes(@RequestBody @Valid MatrixRequestDto matrixRequestDto) {
-        char[][] matrix = matrixRequestDto.getMatrix();
+        logger.info("Method: checkPalindromes");
 
-        Set<String> palindromes = PalindromeUtils.findPalindromes(matrix);
+        Set<String> palindromes = PalindromeUtils.findPalindromes(matrixRequestDto.getMatrix());
 
         Palindrome palindrome = this.palindromeService.saveResults(palindromes);
 
@@ -50,6 +54,8 @@ public class PalindromeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Set<String>> findResult(@PathVariable String id) {
+        logger.info("Method: findResult");
+
         Palindrome palindrome = this.palindromeService.findById(id);
         return ResponseEntity.ok(palindrome.getResultList());
     }

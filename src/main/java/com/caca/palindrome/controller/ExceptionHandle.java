@@ -2,7 +2,8 @@ package com.caca.palindrome.controller;
 
 import com.caca.palindrome.controller.dto.ErrorHandleDto;
 import com.caca.palindrome.controller.dto.FieldErrorDto;
-import com.caca.palindrome.model.exception.ResourceNotFound;
+import com.caca.palindrome.model.exception.ResourceNotFoundException;
+import com.caca.palindrome.model.exception.UnableSearchPalindromeException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,14 +52,26 @@ public class ExceptionHandle {
         );
     }
 
-    @ExceptionHandler(ResourceNotFound.class)
-    public ResponseEntity<ErrorHandleDto> resourceNotFound(ResourceNotFound e, HttpServletRequest httpServletRequest) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorHandleDto> resourceNotFound(ResourceNotFoundException e, HttpServletRequest httpServletRequest) {
 
         ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.NOT_FOUND.value(),
                 "Recurso não encontrado",
                 httpServletRequest.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                errorHandleDto
+        );
+    }
+
+    @ExceptionHandler(UnableSearchPalindromeException.class)
+    public ResponseEntity<ErrorHandleDto> unableSearchPalindromeException(UnableSearchPalindromeException e, HttpServletRequest httpServletRequest) {
+
+        ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                e.getMessage(),
+                httpServletRequest.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 errorHandleDto
         );
     }
