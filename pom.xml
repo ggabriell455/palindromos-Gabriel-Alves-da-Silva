@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.caca.palindrome</groupId>
-    <artifactId>demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>palindrome</artifactId>
+    <version>0.0.1-beta</version>
     <name>caca-palindrome</name>
     <description>Esse pequeno projeto tem como objetivo encontrar palindromos em matrizes quadradas.</description>
     <properties>
