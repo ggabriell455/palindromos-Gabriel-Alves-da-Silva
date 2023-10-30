@@ -4,6 +4,10 @@ import com.caca.palindrome.controller.dto.ErrorHandleDto;
 import com.caca.palindrome.controller.dto.FieldErrorDto;
 import com.caca.palindrome.model.exception.ResourceNotFoundException;
 import com.caca.palindrome.model.exception.UnableSearchPalindromeException;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,11 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ExceptionHandle {
 
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorHandleDto.class))}),
+    })
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorHandleDto> methodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
 
@@ -40,6 +49,10 @@ public class ExceptionHandle {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorHandleDto);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorHandleDto.class))}),
+    })
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorHandleDto> httpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest httpServletRequest) {
 
@@ -52,6 +65,10 @@ public class ExceptionHandle {
         );
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "404",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorHandleDto.class))}),
+    })
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorHandleDto> resourceNotFound(ResourceNotFoundException e, HttpServletRequest httpServletRequest) {
 
@@ -64,6 +81,10 @@ public class ExceptionHandle {
         );
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "500",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorHandleDto.class))}),
+    })
     @ExceptionHandler(UnableSearchPalindromeException.class)
     public ResponseEntity<ErrorHandleDto> unableSearchPalindromeException(UnableSearchPalindromeException e, HttpServletRequest httpServletRequest) {
 

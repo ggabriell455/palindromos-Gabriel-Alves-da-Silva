@@ -22,7 +22,7 @@ import java.net.URI;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/palindromes")
+@RequestMapping(value = "/palindromes", produces = "application/json")
 public class PalindromeController {
 
     Logger logger = LoggerFactory.getLogger(PalindromeController.class);
