@@ -48,7 +48,7 @@ class PalindromeControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.header().exists(HttpHeaders.LOCATION))
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$", hasSize(4)));
+                .andExpect(jsonPath("$", hasSize(8)));
     }
 
     @Test

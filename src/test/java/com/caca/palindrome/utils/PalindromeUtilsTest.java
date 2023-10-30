@@ -82,7 +82,7 @@ class PalindromeUtilsTest {
         };
 
         Set<String> palindromes = PalindromeUtils.findPalindromes(matrix);
-        assertEquals(4, palindromes.size());
+        assertEquals(8, palindromes.size());
 
         boolean containsAll = palindromes.containsAll(Arrays.asList("LPPL", "ARARA", "OSSO", "YJJY"));
         assertTrue(containsAll);

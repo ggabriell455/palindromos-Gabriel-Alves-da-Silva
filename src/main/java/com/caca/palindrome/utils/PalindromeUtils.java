@@ -68,7 +68,7 @@ public class PalindromeUtils {
         logger.info("Method: isPalindrome");
 
         boolean isPalindrome = false;
-        if (StringUtils.hasText(text) && text.length() >= 4) {
+        if (StringUtils.hasText(text) && text.length() >= 3) {
             StringBuilder plain = new StringBuilder(text);
             StringBuilder reverse = plain.reverse();
             isPalindrome = (reverse.toString()).equals(text);
