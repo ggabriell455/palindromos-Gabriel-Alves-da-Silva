@@ -103,10 +103,12 @@ PS: <user-do-dockerhub> pode ser substituido por qualquer texto.
 #### Resultado 
 ````json
 [
-    "OSSO",
-    "ARARA",
-    "1001",
-    "ASSA"
+  "ARA",
+  "RAR",
+  "OSSO",
+  "ARARA",
+  "1001",
+  "ASSA"
 ]
 ````
 
