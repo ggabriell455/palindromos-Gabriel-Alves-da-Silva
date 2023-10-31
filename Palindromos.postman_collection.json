@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "267bf1f3-b7c1-4d24-b638-7f785b3c93c9",
+		"name": "Palindromos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11602717"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"matrix\": [\r\n    [\"A\", \"O\", \"S\", \"S\", \"O\"],\r\n    [\"Y\", \"R\", \"Z\", \"X\", \"L\"],\r\n    [\"J\", \"S\", \"A\", \"P\", \"M\"],\r\n    [\"J\", \"K\", \"P\", \"R\", \"Z\"],\r\n    [\"Y\", \"L\", \"E\", \"R\", \"A\"]\r\n  ]\r\n}\r\n\r\n// {\r\n//   \"matrix\": [\r\n//     [\"A\", \"1\", \"C\", \"D\", \"E\", \"F\", \"G\", \"H\", \"I\", \"J\"],\r\n//     [\"K\", \"L\", \"0\", \"N\", \"O\", \"P\", \"Q\", \"R\", \"S\", \"T\"],\r\n//     [\"U\", \"V\", \"W\", \"0\", \"Y\", \"Z\", \"0\", \"1\", \"2\", \"3\"],\r\n//     [\"4\", \"5\", \"6\", \"7\", \"1\", \"9\", \"A\", \"B\", \"C\", \"D\"],\r\n//     [\"E\", \"F\", \"G\", \"O\", \"S\", \"S\", \"O\", \"L\", \"M\", \"N\"],\r\n//     [\"O\", \"P\", \"0\", \"R\", \"S\", \"T\", \"U\", \"V\", \"W\", \"X\"],\r\n//     [\"Y\", \"0\", \"0\", \"A\", \"R\", \"A\", \"R\", \"A\", \"6\", \"7\"],\r\n//     [\"1\", \"9\", \"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", \"H\"],\r\n//     [\"I\", \"J\", \"K\", \"L\", \"M\", \"N\", \"O\", \"P\", \"Q\", \"R\"],\r\n//     [\"S\", \"T\", \"U\", \"V\", \"W\", \"X\", \"Y\", \"Z\", \"0\", \"1\"]\r\n//   ]\r\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/palindromes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"palindromes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/palindromes/ef0951bc-eeba-4267-a2c1-810e405cf037",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"palindromes",
+						"ef0951bc-eeba-4267-a2c1-810e405cf037"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
