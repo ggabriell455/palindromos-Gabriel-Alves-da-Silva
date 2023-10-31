@@ -66,6 +66,22 @@ public class ExceptionHandle {
     }
 
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "400",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorHandleDto.class))}),
+    })
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorHandleDto> illegalArgumentException(IllegalArgumentException e, HttpServletRequest httpServletRequest) {
+
+        ErrorHandleDto errorHandleDto = new ErrorHandleDto(HttpStatus.BAD_REQUEST.value(),
+                "Verifique os dados da requisição realizada",
+                httpServletRequest.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                errorHandleDto
+        );
+    }
+
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "404",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorHandleDto.class))}),
     })

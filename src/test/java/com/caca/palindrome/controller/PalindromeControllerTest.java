@@ -145,4 +145,17 @@ class PalindromeControllerTest {
                 .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.path").isNotEmpty());
     }
+
+    @Test
+    @DisplayName("Should return a erro 404 because request is broken")
+    void illegalArgumentException() throws Exception {
+
+        this.mockMvc.perform(get(BASE_URL + "/9147b7df-dfd7-4c38-83c5-514324db74b6 "))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.error").value("Verifique os dados da requisição realizada"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
+                .andExpect(jsonPath("$.path").isNotEmpty());
+    }
 }

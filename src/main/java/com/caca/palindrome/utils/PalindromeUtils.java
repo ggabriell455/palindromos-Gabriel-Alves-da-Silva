@@ -43,6 +43,9 @@ public class PalindromeUtils {
         }
     }
 
+    // Metodo auxiliar pra percorrer repetidas vezes a partir de cada nova posição em qualquer direção.
+    // rowIncrement e columnIncrement são os responsaveis pela forma que o indice é incrementado e com isso a forma que se movimenta na matrix
+
     private static Set<String> checkPalindrome(char[][] matrix, int row, int column, int rowIncrement, int columnIncrement) {
         int rows = matrix.length;
         int cols = matrix[0].length;
@@ -63,7 +66,7 @@ public class PalindromeUtils {
         return palindromes;
     }
 
-    //TODO perguntar se as palavras buscadas tem que ser maior que 4 letrás sempre?
+    //Assumindo que só são palidromos os agrupamentos que tiverem mais de 3 caracteres
     public static boolean isPalindrome(String text) {
         logger.info("Method: isPalindrome");
 
