@@ -1,7 +1,6 @@
 package com.caca.palindrome.service;
 
 
-import com.caca.palindrome.controller.PalindromeController;
 import com.caca.palindrome.model.entity.Palindrome;
 import com.caca.palindrome.model.exception.ResourceNotFoundException;
 import com.caca.palindrome.repository.PalindromeRepository;
